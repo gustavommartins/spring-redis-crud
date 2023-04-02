@@ -3,6 +3,7 @@ package br.com.gustavom.crudredis.controller;
 import br.com.gustavom.crudredis.domain.Usuario;
 import br.com.gustavom.crudredis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,15 @@ public class RedisController {
     public ResponseEntity<String> deletaUsuario(@PathVariable int id){
         service.deleteById(id);
         return ResponseEntity.ok().body("Usuario deletado com sucesso");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> alteraUsuario(@PathVariable int id, @RequestBody Usuario usuario){
+        if(service.updateByid(id,usuario)){
+            return ResponseEntity.ok().body("Usuario Alterado!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+        }
     }
 
 }

@@ -22,7 +22,7 @@ public class RedisService {
     }
 
     public Usuario getUsuario(int id){
-        return repository.get(id);
+        return repository.findByid(id);
     }
 
     public List<Usuario> findAll() {
@@ -32,4 +32,9 @@ public class RedisService {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
+
+    public boolean updateByid(int id, Usuario usuario){
+        return repository.updateById(id,usuario);
+    }
+
 }

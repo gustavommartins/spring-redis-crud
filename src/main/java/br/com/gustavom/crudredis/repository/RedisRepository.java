@@ -30,7 +30,7 @@ public class RedisRepository {
         hashOperations.put(KEY_USUARIO, value.getId(), value);
     }
 
-    public Usuario get(int id){
+    public Usuario findByid(int id){
         return mapper.convertValue(hashOperations.get(KEY_USUARIO, id), Usuario.class);
     }
 
@@ -41,4 +41,15 @@ public class RedisRepository {
     public void deleteById(int id) {
         hashOperations.delete(KEY_USUARIO, id);
     }
+
+    public boolean updateById(int id, Usuario user){
+        Usuario usuarioRedis = this.findByid(id);
+        if(Objects.nonNull(usuarioRedis)){
+            user.setId(usuarioRedis.getId());
+            hashOperations.put(KEY_USUARIO, usuarioRedis.getId(), user);
+            return true;
+        }
+        return false;
+    }
+
 }
