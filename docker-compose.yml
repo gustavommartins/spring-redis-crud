@@ -1,4 +1,5 @@
 version: "3.9"
+name: Spring-redis-crud
 services:
   redis:
     image: redis:latest

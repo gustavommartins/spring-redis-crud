@@ -1,6 +1,7 @@
 package br.com.gustavom.crudredis.service;
 
 import br.com.gustavom.crudredis.domain.Usuario;
+import br.com.gustavom.crudredis.mock.IdIncremente;
 import br.com.gustavom.crudredis.repository.RedisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,12 @@ public class RedisService {
     @Autowired
     private RedisRepository repository;
 
-    private static Integer id = 1;
+    @Autowired
+    private IdIncremente mock;
 
     public void gravaUsuario(Usuario usuario){
-        usuario.setId(id);
+        usuario.setId(mock.incrementaId());
         repository.save(usuario);
-        id++;
     }
 
     public Usuario getUsuario(int id){
